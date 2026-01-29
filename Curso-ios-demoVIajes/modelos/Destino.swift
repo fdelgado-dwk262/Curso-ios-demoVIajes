@@ -11,7 +11,7 @@ struct Destino: Identifiable, Hashable {
     let id = UUID()
     let nombre: String
     let icono: String
-    let descripcion: String
+    var descripcion: String
     let color: Color
     var esFavorito: Bool = false
     var puntuacion: Int = 0

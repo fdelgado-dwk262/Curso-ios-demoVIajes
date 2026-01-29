@@ -92,7 +92,9 @@ struct VistaListaDestinosLocal: View {
                 // Destinos
                 Section("Tus destinos") {
                     ForEach($destinos) { $destino in
-                        NavigationLink(destination: Text("\(destino.nombre)")){
+//                        NavigationLink(destination: Text("\(destino.nombre)")){
+                        // llamamos a la vista y como todos los ddatos estan en el contsto global funcion correctamente
+                        NavigationLink(destination: VistaDetalleDestino(destino: $destino)){
                             HStack(spacing: 15) {
                                 ZStack {
                                     Circle()

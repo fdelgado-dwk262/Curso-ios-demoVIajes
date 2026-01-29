@@ -12,6 +12,7 @@ struct Curso_ios_demoVIajesApp: App {
     var body: some Scene {
         WindowGroup {
             VistaDemoViajes()
+            
         }
     }
 }
