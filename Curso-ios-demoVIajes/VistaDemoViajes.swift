@@ -36,7 +36,7 @@ struct VistaDemoViajes: View {
 
     var body: some View {
         VStack {
-            Text("📍 Demo de viajes  ✈️📍")
+            Text("📍 Demo de viajes 📍")
         }
         .padding()
 

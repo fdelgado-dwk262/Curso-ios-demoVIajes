@@ -11,15 +11,21 @@ struct VistaPerfilUsuario: View {
     
     @Binding var nombreUsuario: String
     
+    // solucion para identificar si el dispositivo esta en
+    // landscape o portrait
+    // usaremos una variable interna que tenemos de "definir"
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    
+    
     var body: some View {
-        Text("nombreUsuario: \(nombreUsuario)")
+//        Text("nombreUsuario: \(nombreUsuario)")
         
         Form {
             Section("Datos personales") {
                 Text("Edita tus nombre aquí")
                     .font(.caption)
                     .foregroundStyle(.gray)
-                TextField("tu nombre:", text: $nombreUsuario)
+                TextField("Escribre tu nombre", text: $nombreUsuario)
                     .font(.headline)
                     .foregroundStyle(.green)
             }
@@ -30,6 +36,17 @@ struct VistaPerfilUsuario: View {
             }
         }
         .navigationTitle("Editar Perfil")
+        // deshabilitar el scroll para que no se mueva la pantalla
+        // pero nos puede dar mas problemas en modo horizontal
+        //.scrollDisabled(true)
+        
+        // para ello se soluciona de la siguiente forma no existe un método.
+        // hay que hacer una ÑAPIOS ( ñaoa ios )
+        // lógica
+        // si el alto es "Regular" ( vertical en Iphone) -> secroll desactivado
+        // y si es "Compact" (horizontal en Iphone ) -> scroll activado
+        .scrollDisabled(verticalSizeClass == .regular ? true : false)
+        
     }
 }
 
