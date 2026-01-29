@@ -5,12 +5,14 @@
 //  Created by Equipo 9 on 29/1/26.
 //
 
-import Foundation
+import SwiftUI
 
 struct Destino: Identifiable, Hashable {
-    var id: String
-    var nombre: String
-    var pais: String
-    var descripcion: String
-    var imagen: String
+    let id = UUID()
+    let nombre: String
+    let icono: String
+    let descripcion: String
+    let color: Color
+    var esFavorito: Bool = false
+    var puntuación: Int = 0
 }
