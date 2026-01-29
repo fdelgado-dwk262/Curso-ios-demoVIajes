@@ -14,5 +14,5 @@ struct Destino: Identifiable, Hashable {
     let descripcion: String
     let color: Color
     var esFavorito: Bool = false
-    var puntuación: Int = 0
+    var puntuacion: Int = 0
 }
