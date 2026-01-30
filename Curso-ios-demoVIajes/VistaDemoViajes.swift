@@ -62,6 +62,14 @@ struct VistaDemoViajes: View {
                 Label("Mi perfil", systemImage: "person.circle")
             }
             .tag(1)
+            
+            NavigationStack {
+                GyroscopeView()
+            }
+            .tabItem {
+                Label("Demo", systemImage: "person.circle")
+            }
+            .tag(2)
         }
     }
 }

@@ -184,7 +184,7 @@ struct VistaPuntuacion: View {
         descripcion: "Destino de moda",
         color: .green,
         esFavorito: true,
-        puntuacion: 3
+        puntuacion: 2
     )
 
     VistaDetalleDestino(destino: $destino)
