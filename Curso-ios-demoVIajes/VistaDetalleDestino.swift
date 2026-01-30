@@ -28,11 +28,17 @@ struct VistaDetalleDestino: View {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             destino.esFavorito.toggle()
                         }
-                        
-                        withAnimation(.spring(response: 0.5, dampingFraction: 0.3, blendDuration:0)) {
+
+                        withAnimation(
+                            .spring(
+                                response: 0.5,
+                                dampingFraction: 0.3,
+                                blendDuration: 0
+                            )
+                        ) {
                             escalaCorazon = 1.4
                         }
-                        
+
                         // para ver la animacion hay que ponerle un delay
                         // aqui se habla de los hilos , ejecuciones concurrentes
                         // con el dispatch .- es una ejecuacion no lineal
@@ -40,12 +46,18 @@ struct VistaDetalleDestino: View {
                         // en una vista secuandaria peta la app por permisos en los hilos secundarios
                         //El dispach lo que hacemos en meter este código en el hilo proncipla
                         // y sea asincrona y no se bloque la app, y ademas despues de un periodo de tiempo
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
-                            withAnimation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration:0)) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            withAnimation(
+                                .spring(
+                                    response: 0.5,
+                                    dampingFraction: 0.6,
+                                    blendDuration: 0
+                                )
+                            ) {
                                 escalaCorazon = 1.0
                             }
                         }
-                        
+
                     } label: {
                         Image(
                             systemName: destino.esFavorito
@@ -99,14 +111,35 @@ struct VistaPuntuacion: View {
 
                 if puntuacion > 0 {
                     Button("borrar") {
-                        puntuacion = 0
+                        // codifgo antiguo
+                        // puntuacion = 0
+                        // haremso una animación asincrona con
+                        // retardo para ir borrando una a una
+                        
+                        // variables para la animación
+                        let esperaEntreEstrellas = 0.1 // ( en segundos )
+                        let totalEstrellas = puntuacion
+                        
+                        // bucle para el total de estrellas
+                        for i in 0..<totalEstrellas {
+                            // retardo
+                            let retardo = Double(i) * esperaEntreEstrellas
+                            
+                            // lanzamos el hilo en paralelo con un retardo por cada estrella
+                            DispatchQueue.main.asyncAfter(deadline: .now() + retardo) {
+                                withAnimation {
+                                    puntuacion -= 1
+                                }
+                            }
+                        }
+                        
                     }
                     .font(.caption)
                     .foregroundColor(.red)
 
                 }
             }
-            
+
             // MARK: Estrellas puntuación
             HStack {
                 // logica de pintado de las estrellas
@@ -114,20 +147,21 @@ struct VistaPuntuacion: View {
                 ForEach(1...5, id: \.self) { numero in
                     Image(
                         systemName: numero <= self.puntuacion
-                            ? "star.fill" : "house.fill"
+                            ? "star.fill" : "star"
                     )
                     .foregroundStyle(
                         numero <= self.puntuacion
                             ? Color.yellow : Color.gray.opacity(0.5)
                     )
                     .font(.title)
-                    
+
                     // MARK: animación de las estrellas ✨
                     // 📍 de esta forma reemplaza con Magia Oscura un icono por otro
                     .contentTransition(.symbolEffect(.replace))
-                    
+
                     .onTapGesture {
                         puntuacion = numero
+                        
                     }
                 }
             }
